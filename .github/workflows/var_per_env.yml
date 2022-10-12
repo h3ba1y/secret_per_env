@@ -28,15 +28,15 @@ jobs:
       - name: Set env to staging
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
-          echo "::set-env name=ENVIRONMENT::dev"
+          echo "environment=dev" >> $GITHUB_ENV
           echo "${{ toJSON(secrets) }}"
       - name: Set env to production
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
-          echo "::set-env name=ENVIRONMENT::qa"
+          echo "environment=qa" >> $GITHUB_ENV
           echo "${{ toJSON(secrets) }}"
       - name: Set env to production
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
-          echo "::set-env name=ENVIRONMENT::prod"
+          echo "environment=prod" >> $GITHUB_ENV
           echo "${{ toJSON(secrets) }}"
