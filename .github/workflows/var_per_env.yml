@@ -75,5 +75,5 @@ jobs:
       - name: Set env to dev
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
-          echo "${{ toJSON(secrets) }}" >> $GITHUB_ENV
+          eecho "${{ toJSON(secrets) }}" >> $GITHUB_ENV
           echo "${{ toJSON(secrets) }}"
