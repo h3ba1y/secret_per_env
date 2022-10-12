@@ -20,7 +20,7 @@ jobs:
         run: npm install -g npm@7
       - name: install packages
         run: npm install
-      - name: 'Set github short ref'
+      - name: "Set github short ref"
         id: vars
         run: |
           echo "GITHUB_REF=${GITHUB_REF}"
@@ -29,14 +29,14 @@ jobs:
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
           echo "environment=dev" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets) }}"
+          echo "${{ toJSON(secrets.dev) }}"
       - name: Set env to production
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
           echo "environment=qa" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets) }}"
+          echo "${{ toJSON(secrets.qa) }}"
       - name: Set env to production
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
           echo "environment=prod" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets) }}"
+          echo "${{ toJSON(secrets.prod) }}"
