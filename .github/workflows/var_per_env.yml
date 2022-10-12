@@ -20,7 +20,7 @@ jobs:
           echo "GITHUB_REF=${GITHUB_REF}"
           echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
       - name: get the secrets
-        if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
+        if: steps.vars.outputs.git_short_ref == 'master' && github.event_name == 'push'
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
