@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: check git short ref
         run: |
-          echo "${{ steps.vars.outputs.git_short_ref }}"
+          echo "${GITHUB_BRANCH##*/}"
       - name: Set env to staging
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
