@@ -11,6 +11,9 @@ jobs:
   set_up_env_var:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run build
       - name: 'Set github short ref'
         id: vars
         run: |
