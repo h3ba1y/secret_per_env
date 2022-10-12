@@ -11,9 +11,11 @@ jobs:
   set_up_env_var:
     runs-on: ubuntu-latest
     steps:
-      - name: check git short ref
+      - name: 'Set github short ref'
+        id: vars
         run: |
-          echo "${GITHUB_BRANCH##*/}"
+          echo "GITHUB_REF=${GITHUB_REF}"
+          echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
       - name: Set env to staging
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
