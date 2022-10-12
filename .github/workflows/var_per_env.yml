@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
+      - name: Ensure NPM version 7.x
+        run: npm install -g npm@7
       - name: 'Set github short ref'
         id: vars
         run: |
