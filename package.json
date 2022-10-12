@@ -1,0 +1,22 @@
+{
+  "name": "var_per_env",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hebatarek1989/secret_per_env.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hebatarek1989/secret_per_env/issues"
+  },
+  "homepage": "https://github.com/hebatarek1989/secret_per_env#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.0"
+  }
+}
