@@ -13,7 +13,6 @@ jobs:
     environment: prod
     steps:
       - uses: actions/checkout@v2
-      - name: Setup node 14.x
       - name: "Set github short ref"
         id: vars
         run: |
@@ -34,7 +33,6 @@ jobs:
     environment: qa
     steps:
       - uses: actions/checkout@v2
-      - name: Setup node 14.x
       - name: "Set github short ref"
         id: vars
         run: |
@@ -55,7 +53,6 @@ jobs:
     environment: dev
     steps:
       - uses: actions/checkout@v2
-      - name: Setup node 14.x
       - name: "Set github short ref"
         id: vars
         run: |
