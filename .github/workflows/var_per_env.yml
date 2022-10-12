@@ -30,7 +30,7 @@ jobs:
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
           echo "environment=prod" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets.prod) }}"
+          echo "${{ toJSON(secrets) }}"
   set_up_env_var_qa:
     runs-on: ubuntu-latest
     environment: qa
@@ -53,7 +53,7 @@ jobs:
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
           echo "environment=qa" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets.qa) }}"
+          echo "${{ toJSON(secrets) }}"
   set_up_env_var_dev:
     runs-on: ubuntu-latest
     environment: dev
@@ -76,5 +76,5 @@ jobs:
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
           echo "environment=dev" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets.dev) }}"
+          echo "${{ toJSON(secrets) }}"
   
