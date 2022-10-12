@@ -8,8 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  set_up_env_var:
+  set_up_env_var_prod:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - uses: actions/checkout@v2
       - name: Setup node 14.x
@@ -25,18 +26,55 @@ jobs:
         run: |
           echo "GITHUB_REF=${GITHUB_REF}"
           echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
-      - name: Set env to staging
-        if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
-        run: |
-          echo "environment=dev" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets.dev) }}"
-      - name: Set env to production
-        if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
-        run: |
-          echo "environment=qa" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets.qa) }}"
       - name: Set env to production
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
           echo "environment=prod" >> $GITHUB_ENV
           echo "${{ toJSON(secrets.prod) }}"
+  set_up_env_var_qa:
+    runs-on: ubuntu-latest
+    environment: qa
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Ensure NPM version 7.x
+        run: npm install -g npm@7
+      - name: install packages
+        run: npm install
+      - name: "Set github short ref"
+        id: vars
+        run: |
+          echo "GITHUB_REF=${GITHUB_REF}"
+          echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
+      - name: Set env to production
+        if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
+        run: |
+          echo "environment=qa" >> $GITHUB_ENV
+          echo "${{ toJSON(secrets.qa) }}"
+  set_up_env_var_dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Ensure NPM version 7.x
+        run: npm install -g npm@7
+      - name: install packages
+        run: npm install
+      - name: "Set github short ref"
+        id: vars
+        run: |
+          echo "GITHUB_REF=${GITHUB_REF}"
+          echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
+      - name: Set env to dev
+        if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
+        run: |
+          echo "environment=dev" >> $GITHUB_ENV
+          echo "${{ toJSON(secrets.dev) }}"
+  
