@@ -75,5 +75,5 @@ jobs:
       - name: get the secrets
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
-          echo "${ toJSON(secrets) }" >> $GITHUB_ENV
+          echo "access_token = secrets.access_token" >> $GITHUB_ENV
           echo "${{ toJSON(secrets) }}"
