@@ -29,7 +29,7 @@ jobs:
       - name: get the secrets
         if: steps.vars.outputs.git_short_ref == 'master' && github.event_name == 'push'
         run: |
-          echo "${{ toJSON(secrets) }}" >> $GITHUB_ENV
+          echo "${ toJSON(secrets) }" >> $GITHUB_ENV
           echo "${{ toJSON(secrets) }}"
   set_up_env_var_qa:
     runs-on: ubuntu-latest
@@ -52,7 +52,7 @@ jobs:
       - name: get the secrets
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
-          echo "${{ toJSON(secrets) }}" >> $GITHUB_ENV
+          echo "${ toJSON(secrets) }" >> $GITHUB_ENV
           echo "${{ toJSON(secrets) }}"
   set_up_env_var_dev:
     runs-on: ubuntu-latest
@@ -75,5 +75,5 @@ jobs:
       - name: get the secrets
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
-          echo "${{ toJSON(secrets) }}" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets) }}"
+          echo "${ toJSON(secrets) }" >> $GITHUB_ENV
+          echo "${ toJSON(secrets) }"
