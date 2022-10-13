@@ -18,7 +18,7 @@ jobs:
         if: needs.call_reuable_code.outputs.git_short_ref == 'master' && github.event_name == 'push'
         run: |
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
-          echo "prod secrets: ${{ toJSON(secrets) }}"
+          echo "prOd secrets: ${{ toJSON(secrets) }}"
   set_up_env_var_qa:
     runs-on: ubuntu-latest
     environment: qa
@@ -28,7 +28,7 @@ jobs:
         if: needs.call_reuable_code.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
-          echo "qa secrets: ${{ toJSON(secrets) }}"
+          echo "q@ secrets: ${{ toJSON(secrets) }}"
   set_up_env_var_dev:
     runs-on: ubuntu-latest
     environment: dev
@@ -38,4 +38,4 @@ jobs:
         if: needs.call_reuable_code.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
-          echo "dev secrets: ${{ toJSON(secrets) }}"
+          echo "D3V secrets: ${{ toJSON(secrets) }}"
