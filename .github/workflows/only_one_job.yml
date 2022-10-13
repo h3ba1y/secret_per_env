@@ -10,10 +10,10 @@ on:
 jobs:
   deploy-to-env:
     run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
-    run: echo "${ BRANCH_NAME }"
+    run: echo $BRANCH_NAME
     uses: ./.github/workflows/test.yml
     secrets: inherit
     with:
-      env: "${ BRANCH_NAME }"
+      env: $BRANCH_NAME
     
     
