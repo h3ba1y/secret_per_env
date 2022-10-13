@@ -10,9 +10,6 @@ on:
 jobs:
   call_reuable_code:
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.vars.outputs.git_short_ref }}
-
     steps:
       - name: "Set github short ref"
         id: vars
@@ -25,4 +22,4 @@ jobs:
     uses: ./.github/workflows/test.yml
     secrets: inherit
     with:
-      env: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[needs.call_reuable_code.outpust.output1] }}
+      env: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[needs.call_reuable_code.steps.vars.outputs.git_short_ref] }}
