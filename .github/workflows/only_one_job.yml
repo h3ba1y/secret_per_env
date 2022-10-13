@@ -9,7 +9,7 @@ on:
 
 jobs:
   call_reuable_code:
-    uses: ./.github/workflows/reusable.yml
+    uses: ./.github/workflows/git_env.yml
   deploy-to-env:
     name: "deploy to environment"
     uses: ./.github/workflows/test.yml
