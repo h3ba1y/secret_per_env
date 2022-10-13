@@ -6,10 +6,6 @@ on:
       - develop
       - master
       - qa
-    outputs:
-      env:
-        description: "en"
-        value:  ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[jobs.reusable_job.outputs.output1] }}
 
 jobs:
   call_reuable_code:
