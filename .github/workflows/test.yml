@@ -13,7 +13,7 @@ jobs:
         id: vars
         run: |
           echo "GITHUB_REF=${GITHUB_REF}"
-          echo "git_short_ref=$(echo ${GITHUB_REF#refs/*/})" >> $GITHUB_EN
+          echo "git_short_ref=$(echo ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
   test:
     name: test
     runs-on: ubuntu-latest
