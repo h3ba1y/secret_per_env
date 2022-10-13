@@ -9,8 +9,6 @@ on:
 
 jobs:
   deploy-to-env:
-    run: echo "GITHUB_REF=${GITHUB_REF}"
-    run: echo "git_short_ref=${GITHUB_REF#refs/*/}"
     if: [[ "${{GITHUB_REF}}" == "refs/heads/develop" ]]
     uses: ./.github/workflows/test.yml
     secrets: inherit
