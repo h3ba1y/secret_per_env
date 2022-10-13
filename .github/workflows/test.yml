@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       output1: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[env.git_short_ref] }}
-
     steps:
       - name: "Set github short ref"
         id: vars
