@@ -8,8 +8,10 @@ on:
       - qa
 
 jobs:
-  call_reuable_code:
+  get_env_var:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.vars.outputs.git_short_ref }}
     steps:
       - name: "Set github short ref"
         id: vars
@@ -18,8 +20,8 @@ jobs:
           echo "::set-opt name=git_short_ref::${GITHUB_REF#refs/*/}"
   deploy-to-env:
     name: "deploy to environment"
-    needs: call_reuable_code
+    needs: get_env_var
     uses: ./.github/workflows/test.yml
     secrets: inherit
     with:
-      env: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[needs.call_reuable_code.steps.vars.outputs.git_short_ref] }}
+      env: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[needs.get_env_var.outputs.output1] }}
