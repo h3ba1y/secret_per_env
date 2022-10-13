@@ -8,7 +8,7 @@ on:
 
 jobs:
   call_reuable_code:
-    uses: /hebatarek1989/secret_per_env/.github/workflows/reusable.yml@master
+    uses: ./.github/workflows/reusable.yml
   set_up_env_var_prod:
     runs-on: ubuntu-latest
     environment: prod
