@@ -12,7 +12,7 @@ jobs:
     uses: ./.github/workflows/git_env.yml
   deploy-to-env:
     name: "deploy to environment"
-    needs: call_reuable_code
+    needs: get_env_var
     uses: ./.github/workflows/test.yml
     secrets: inherit
     with:
