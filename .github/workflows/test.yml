@@ -7,14 +7,14 @@ jobs:
   get_env_var:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ env.git_short_ref }}
+      output1: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[env.git_short_ref] }}
 
     steps:
       - name: "Set github short ref"
         id: vars
         run: |
           echo "GITHUB_REF=${GITHUB_REF}"
-          echo "git_short_ref=$(echo ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
+          echo "git_short_ref=$(echo ${GITHUB_REF#refs/*/})" >> $GITHUB_EN
   test:
     name: test
     runs-on: ubuntu-latest
