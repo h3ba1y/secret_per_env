@@ -7,23 +7,15 @@ on:
   workflow_dispatch:
 
 jobs:
+  call_reuable_code:
+    uses: /hebatarek1989/secret_per_env/.github/workflows/reusable.yml@master
   set_up_env_var_prod:
     runs-on: ubuntu-latest
     environment: prod
+    needs: call_reuable_code
     steps:
-      - name: "Set github short ref"
-        id: vars
-        run: |
-          echo "GITHUB_REF=${GITHUB_REF}"
-          echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
-      - name: cehckout
-        uses: actions/checkout@v2
-      - name: "install node 14"
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
       - name: "logic"
-        if: steps.vars.outputs.git_short_ref == 'master' && github.event_name == 'push'
+        if: needs.call_reuable_code.outputs.git_short_ref == 'master' && github.event_name == 'push'
         run: |
           npm install -g npm@7
           npm install
@@ -32,20 +24,10 @@ jobs:
   set_up_env_var_qa:
     runs-on: ubuntu-latest
     environment: qa
+    needs: call_reuable_code
     steps:
-      - name: "Set github short ref"
-        id: vars
-        run: |
-          echo "GITHUB_REF=${GITHUB_REF}"
-          echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
-      - name: cehckout
-        uses: actions/checkout@v2
-      - name: "install node 14"
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
       - name: "logic"
-        if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
+        if: needs.call_reuable_code.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
           npm install -g npm@7
           npm install
@@ -54,20 +36,10 @@ jobs:
   set_up_env_var_dev:
     runs-on: ubuntu-latest
     environment: dev
+    needs: call_reuable_code
     steps:
-      - name: "Set github short ref"
-        id: vars
-        run: |
-          echo "GITHUB_REF=${GITHUB_REF}"
-          echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
-      - name: cehckout
-        uses: actions/checkout@v2
-      - name: "install node 14"
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
       - name: "logic"
-        if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
+        if: needs.call_reuable_code.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
           npm install -g npm@7
           npm install
