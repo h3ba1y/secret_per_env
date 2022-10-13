@@ -29,4 +29,4 @@ jobs:
     uses: ./.github/workflows/test.yml
     secrets: inherit
     with:
-      env: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[jobs.call_reuable_code.steps.var1.output1] }}
+      env: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[needs.call_reuable_code.steps.var1.output1] }}
