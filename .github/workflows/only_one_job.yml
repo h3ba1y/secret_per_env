@@ -11,9 +11,10 @@ jobs:
   deploy-to-env:
     uses: nelonoel/branch-name@v1
     run: echo ${BRANCH_NAME}
-    uses: ./.github/workflows/test.yml
-    secrets: inherit
-    with:
-      env: ${BRANCH_NAME}
+
+    # uses: ./.github/workflows/test.yml
+    # secrets: inherit
+    # with:
+    #   env: ${BRANCH_NAME}
     
     
