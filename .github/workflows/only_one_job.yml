@@ -18,6 +18,8 @@ jobs:
         run: |
           echo "GITHUB_REF=${GITHUB_REF}"
           echo "::set-opt name=git_short_ref::${GITHUB_REF#refs/*/}"
+      - run: |
+          echo ${{ steps.vars.outputs.git_short_ref }}
   deploy-to-env:
     name: "deploy to environment"
     needs: get_env_var
