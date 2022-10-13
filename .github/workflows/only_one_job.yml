@@ -6,14 +6,23 @@ on:
       - develop
       - master
       - qa
-
+    
 jobs:
   call_reuable_code:
-    uses: ./.github/workflows/git_env.yml
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.vars.outputs.git_short_ref }}
+
+    steps:
+      - name: "Set github short ref"
+        id: vars
+        run: |
+          echo "GITHUB_REF=${GITHUB_REF}"
+          echo "::set-env name=git_short_ref::${GITHUB_REF#refs/*/}"
   deploy-to-env:
     name: "deploy to environment"
     needs: call_reuable_code
     uses: ./.github/workflows/test.yml
     secrets: inherit
     with:
-      env: ${{ needs.call_reuable_code.outputs.env }}
+      env: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[env.git_short_ref] }}
