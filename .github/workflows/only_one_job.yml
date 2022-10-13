@@ -18,19 +18,16 @@ jobs:
           map: |
             {
               "master": {
-                "environment": "production",
+                "environment": "production"
               },
               "qa": {
-                "environment": "staging",
+                "environment": "staging"
               },
               "develop": {
-                "environment": "dev",
+                "environment": "dev"
               }
             }
       - id: reusable
         uses: ./.github/workflows/test.yml
         with:
           env: ${{ env.environment }}
-
-    
-    
