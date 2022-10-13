@@ -17,10 +17,8 @@ jobs:
       - name: "logic"
         if: needs.call_reuable_code.outputs.git_short_ref == 'master' && github.event_name == 'push'
         run: |
-          npm install -g npm@7
-          npm install
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets) }}"
+          echo "prod secrets: ${{ toJSON(secrets) }}"
   set_up_env_var_qa:
     runs-on: ubuntu-latest
     environment: qa
@@ -29,10 +27,8 @@ jobs:
       - name: "logic"
         if: needs.call_reuable_code.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
-          npm install -g npm@7
-          npm install
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets) }}"
+          echo "qa secrets: ${{ toJSON(secrets) }}"
   set_up_env_var_dev:
     runs-on: ubuntu-latest
     environment: dev
@@ -41,7 +37,5 @@ jobs:
       - name: "logic"
         if: needs.call_reuable_code.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
-          npm install -g npm@7
-          npm install
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
-          echo "${{ toJSON(secrets) }}"
+          echo "dev secrets: ${{ toJSON(secrets) }}"
