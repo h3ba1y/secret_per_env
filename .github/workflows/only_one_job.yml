@@ -12,7 +12,7 @@ jobs:
   #   uses: ./.github/workflows/git_env.yml
   deploy-to-env:
     name: "deploy to ${{ needs.get_env_var.outputs.env }} environment"
-    needs: get_env_var
+    # needs: get_env_var
     uses: ./.github/workflows/test.yml
     secrets: inherit
     # with:
