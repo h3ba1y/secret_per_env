@@ -33,45 +33,43 @@ jobs:
     runs-on: ubuntu-latest
     environment: qa
     steps:
-      - uses: actions/checkout@v2
-      - name: "install node 14"
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - name: "install packages"
-        run: |
-          npm install -g npm@7
-          npm install
       - name: "Set github short ref"
         id: vars
         run: |
           echo "GITHUB_REF=${GITHUB_REF}"
           echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
-      - name: get the secrets
+      - name: cehckout
+        uses: actions/checkout@v2
+      - name: "install node 14"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: "logic"
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
         run: |
+          npm install -g npm@7
+          npm install
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
           echo "${{ toJSON(secrets) }}"
   set_up_env_var_dev:
     runs-on: ubuntu-latest
     environment: dev
     steps:
-      - uses: actions/checkout@v2
-      - name: "install node 14"
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - name: "install packages"
-        run: |
-          npm install -g npm@7
-          npm install
       - name: "Set github short ref"
         id: vars
         run: |
           echo "GITHUB_REF=${GITHUB_REF}"
           echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
-      - name: get the secrets
+      - name: cehckout
+        uses: actions/checkout@v2
+      - name: "install node 14"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: "logic"
         if: steps.vars.outputs.git_short_ref == 'develop' && github.event_name == 'push'
         run: |
+          npm install -g npm@7
+          npm install
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
           echo "${{ toJSON(secrets) }}"
