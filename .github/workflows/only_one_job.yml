@@ -9,25 +9,23 @@ on:
 
 jobs:
   deploy-to-env:
-    runs-on: ubuntu-latest
     name: "deploy to environment"
-    steps:
-      - uses: kanga333/variable-mapper@master
-        with:
-          key: "${{github.base_ref}}"
-          map: |
-            {
-              "master": {
-                "environment": "production"
-              },
-              "qa": {
-                "environment": "staging"
-              },
-              "develop": {
-                "environment": "dev"
-              }
+    - uses: kanga333/variable-mapper@master
+      with:
+        key: "${{github.base_ref}}"
+        map: |
+          {
+            "master": {
+              "environment": "production"
+            },
+            "qa": {
+              "environment": "staging"
+            },
+            "develop": {
+              "environment": "dev"
             }
-      - id: reusable
-        uses: ./.github/workflows/test.yml
-        with:
-          env: ${{ env.environment }}
+          }
+    - uses: ./.github/workflows/test.yml
+      secrets: inherit
+      with:
+        env: ${{ env.environment }}
