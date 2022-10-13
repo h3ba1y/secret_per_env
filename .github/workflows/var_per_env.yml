@@ -1,44 +1,44 @@
-name: var_per_env
-on:
-  push:
-    branches:
-      - develop
-      - master
-  workflow_dispatch:
+# name: var_per_env
+# on:
+#   push:
+#     branches:
+#       - develop
+#       - master
+#   workflow_dispatch:
 
-jobs:
-  call_reuable_code:
-    uses: ./.github/workflows/reusable.yml
+# jobs:
+#   call_reuable_code:
+#     uses: ./.github/workflows/reusable.yml
     
-  set_up_env_var_prod:
-    runs-on: ubuntu-latest
-    environment: prod
-    needs: call_reuable_code
-    steps:
-      - name: "logic"
-        if: needs.call_reuable_code.outputs.git_short_ref == 'master' && github.event_name == 'push'
-        run: |
-          echo "access_token = secrets.access_token" >> $GITHUB_ENV
-          echo "prOd secrets: ${{ toJSON(secrets) }}"
+#   set_up_env_var_prod:
+#     runs-on: ubuntu-latest
+#     environment: prod
+#     needs: call_reuable_code
+#     steps:
+#       - name: "logic"
+#         if: needs.call_reuable_code.outputs.git_short_ref == 'master' && github.event_name == 'push'
+#         run: |
+#           echo "access_token = secrets.access_token" >> $GITHUB_ENV
+#           echo "prOd secrets: ${{ toJSON(secrets) }}"
 
-  set_up_env_var_qa:
-    runs-on: ubuntu-latest
-    environment: qa
-    needs: call_reuable_code
-    steps:
-      - name: "logic"
-        if: needs.call_reuable_code.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
-        run: |
-          echo "access_token = secrets.access_token" >> $GITHUB_ENV
-          echo "q@ secrets: ${{ toJSON(secrets) }}"
+#   set_up_env_var_qa:
+#     runs-on: ubuntu-latest
+#     environment: qa
+#     needs: call_reuable_code
+#     steps:
+#       - name: "logic"
+#         if: needs.call_reuable_code.outputs.git_short_ref == 'develop' && github.event_name == 'workflow_dispatch'
+#         run: |
+#           echo "access_token = secrets.access_token" >> $GITHUB_ENV
+#           echo "q@ secrets: ${{ toJSON(secrets) }}"
 
-  set_up_env_var_dev:
-    runs-on: ubuntu-latest
-    environment: dev
-    needs: call_reuable_code
-    steps:
-      - name: "logic"
-        if: needs.call_reuable_code.outputs.git_short_ref == 'develop' && github.event_name == 'push'
-        run: |
-          echo "access_token = secrets.access_token" >> $GITHUB_ENV
-          echo "D3V secrets: ${{ toJSON(secrets) }}"
+#   set_up_env_var_dev:
+#     runs-on: ubuntu-latest
+#     environment: dev
+#     needs: call_reuable_code
+#     steps:
+#       - name: "logic"
+#         if: needs.call_reuable_code.outputs.git_short_ref == 'develop' && github.event_name == 'push'
+#         run: |
+#           echo "access_token = secrets.access_token" >> $GITHUB_ENV
+#           echo "D3V secrets: ${{ toJSON(secrets) }}"

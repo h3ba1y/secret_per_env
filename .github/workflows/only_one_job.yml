@@ -1,0 +1,26 @@
+name: 'Build and Deploy to dev'
+
+on:
+  push:
+    branches:
+      - develop
+      - master
+      - qa
+
+jobs:
+  deploy-to-env:
+    steps:
+      - name: "Set github short ref"
+        id: vars
+        run: |
+          echo "GITHUB_REF=${GITHUB_REF}"
+          echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+    with:
+      if: steps.vars.outputs.git_short_ref == 'develop'
+      env: dev
+      if: steps.vars.outputs.git_short_ref == 'master'
+      env: prod
+      if: steps.vars.outputs.git_short_ref == 'qa'
+      env: qa
