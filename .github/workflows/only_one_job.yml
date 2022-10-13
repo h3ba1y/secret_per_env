@@ -11,10 +11,12 @@ jobs:
   deploy-to-env:
     uses: ./.github/workflows/test.yml
     secrets: inherit
+    if: [[ "${{github.base_ref}}" == "develop" || "${{github.ref}}" == "refs/heads/develop" ]]
     with:
-        if: [[ "${{github.base_ref}}" == "develop" || "${{github.ref}}" == "refs/heads/develop" ]]
-          env: dev
-        if: [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]
-          env: prod
-        if: [[ "${{github.base_ref}}" == "qa" || "${{github.ref}}" == "refs/heads/qa" ]]
-          env: qa
+      env: dev
+    if: [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]
+      with:
+        env: prod
+    if: [[ "${{github.base_ref}}" == "qa" || "${{github.ref}}" == "refs/heads/qa" ]]
+      with:
+        env: qa
