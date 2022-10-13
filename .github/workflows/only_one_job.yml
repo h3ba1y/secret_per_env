@@ -18,7 +18,7 @@ jobs:
         id: vars
         run: |
           echo "GITHUB_REF=${GITHUB_REF}"
-          echo "::set-env name=git_short_ref::${GITHUB_REF#refs/*/}"
+          echo "::set-opt name=git_short_ref::${GITHUB_REF#refs/*/}"
   deploy-to-env:
     name: "deploy to environment"
     needs: call_reuable_code
