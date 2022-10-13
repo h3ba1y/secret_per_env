@@ -9,21 +9,11 @@ on:
 
 jobs:
   get_env_var:
-    runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.vars.outputs.git_short_ref }}
-    steps:
-      - name: "Set github short ref"
-        id: vars
-        run: |
-          echo "GITHUB_REF=${GITHUB_REF}"
-          echo "::set-opt name=git_short_ref::${GITHUB_REF#refs/*/}"
-      - run: |
-          echo ${{ steps.vars.outputs.git_short_ref }}
+    uses: ./.github/workflows/git_env.yml
   deploy-to-env:
     name: "deploy to environment"
-    needs: get_env_var
+    needs: call_reuable_code
     uses: ./.github/workflows/test.yml
     secrets: inherit
     with:
-      env: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[needs.get_env_var.outputs.output1] }}
+      env: ${{ needs.get_env_var.outputs.env }}
