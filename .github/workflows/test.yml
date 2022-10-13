@@ -2,10 +2,6 @@ name: "test"
 
 on:
   workflow_call:
-    inputs:
-      env:
-        required: true
-        type: string
 
 jobs:
   get_env_var:
