@@ -8,12 +8,7 @@ on:
       - qa
 
 jobs:
-  # get_env_var:
-  #   uses: ./.github/workflows/git_env.yml
   deploy-to-env:
-    name: "deploy to ${{ needs.get_env_var.outputs.env }} environment"
-    # needs: get_env_var
+    name: "deploy to environment"
     uses: ./.github/workflows/test.yml
     secrets: inherit
-    # with:
-    #   env: ${{ needs.get_env_var.outputs.env }}
