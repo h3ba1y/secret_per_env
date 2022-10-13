@@ -10,16 +10,10 @@ on:
 jobs:
   deploy-to-env:
     run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
-    if: $BRANCH_NAME == "refs/heads/develop"
+    run: echo "${{ BRANCH_NAME }}"
     uses: ./.github/workflows/test.yml
     secrets: inherit
     with:
-      env: dev
-    if: $BRANCH_NAME == "refs/heads/master"
-    uses: ./.github/workflows/test.yml
-    secrets: inherit
-    with:
-        env: prod
-    if: $BRANCH_NAME == "refs/heads/qa"
+      env: "${{ BRANCH_NAME }}"
     
     
