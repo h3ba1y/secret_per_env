@@ -3,9 +3,10 @@ name: Reusable workflow
 on:
   workflow_call:
     outputs:
-      git_short_ref:
+      env:
         description: "en"
         value:  ${{ fromJSON('{develop:"dev"}')[jobs.reusable_job.outputs.output1] }}
+        
 
 jobs:
   reusable_job:
