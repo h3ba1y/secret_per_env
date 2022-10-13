@@ -5,7 +5,7 @@ on:
     outputs:
       env:
         description: "en"
-        value:  ${{ fromJSON('{develop:"dev"}')[jobs.reusable_job.outputs.output1] }}
+        value:  ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[jobs.reusable_job.outputs.output1] }}
         
 
 jobs:
