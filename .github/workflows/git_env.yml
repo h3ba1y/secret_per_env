@@ -1,0 +1,21 @@
+name: Reusable workflow
+
+on:
+  workflow_call:
+    outputs:
+      git_short_ref:
+        description: "git_short_ref"
+        value: ${{ jobs.reusable_job.outputs.output1 }}
+
+jobs:
+  reusable_job:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.vars.outputs.git_short_ref }}
+
+    steps:
+      - name: "Set github short ref"
+        id: vars
+        run: |
+          echo "GITHUB_REF=${GITHUB_REF}"
+          echo "::set-output name=git_short_ref::${GITHUB_REF#refs/*/}"

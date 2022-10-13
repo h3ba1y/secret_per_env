@@ -8,24 +8,12 @@ on:
       - qa
 
 jobs:
+  call_reuable_code:
+    uses: ./.github/workflows/reusable.yml
   deploy-to-env:
     name: "deploy to environment"
-    - uses: kanga333/variable-mapper@master
-      with:
-        key: "${{github.base_ref}}"
-        map: |
-          {
-            "master": {
-              "environment": "production"
-            },
-            "qa": {
-              "environment": "staging"
-            },
-            "develop": {
-              "environment": "dev"
-            }
-          }
-    - uses: ./.github/workflows/test.yml
-      secrets: inherit
-      with:
-        env: ${{ env.environment }}
+    uses: ./.github/workflows/test.yml
+    needs: call_reuable_code
+    secrets: inherit
+    with:
+      env: ${{ needs.call_reuable_code.outputs.git_short_ref }}
