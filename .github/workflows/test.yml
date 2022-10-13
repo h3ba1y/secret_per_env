@@ -21,4 +21,4 @@ jobs:
       - run: echo "${{ inputs.env }}"
       - run: |
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
-          echo "D3V secrets: ${{ toJSON(secrets) }}"
+          echo "secrets: ${{ toJSON(secrets) }}"
