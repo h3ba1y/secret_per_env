@@ -9,6 +9,7 @@ on:
 jobs:
   call_reuable_code:
     uses: ./.github/workflows/reusable.yml
+    
   set_up_env_var_prod:
     runs-on: ubuntu-latest
     environment: prod
@@ -19,6 +20,7 @@ jobs:
         run: |
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
           echo "prOd secrets: ${{ toJSON(secrets) }}"
+
   set_up_env_var_qa:
     runs-on: ubuntu-latest
     environment: qa
@@ -29,6 +31,7 @@ jobs:
         run: |
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
           echo "q@ secrets: ${{ toJSON(secrets) }}"
+
   set_up_env_var_dev:
     runs-on: ubuntu-latest
     environment: dev
