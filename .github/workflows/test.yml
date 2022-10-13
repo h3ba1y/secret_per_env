@@ -13,9 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.env }}
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: "npm"
       - run: npm install
       - run: echo "${{ inputs.env }}"
+      - run: |
+          echo "access_token = secrets.access_token" >> $GITHUB_ENV
+          echo "D3V secrets: ${{ toJSON(secrets) }}"
