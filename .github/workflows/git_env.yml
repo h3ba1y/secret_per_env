@@ -6,7 +6,7 @@ on:
       git_short_ref:
         description: "en"
         if: jobs.reusable_job.outputs.output1 == develop
-        value:  ${{ fromJSON({"develop":"dev"})[jobs.reusable_job.outputs.output1] }}
+        value:  ${{ fromJSON({develop:"dev"})[jobs.reusable_job.outputs.output1] }}
 
 jobs:
   reusable_job:
