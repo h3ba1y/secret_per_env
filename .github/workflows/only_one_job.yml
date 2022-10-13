@@ -12,8 +12,9 @@ jobs:
     uses: ./.github/workflows/git_env.yml
   deploy-to-env:
     name: "deploy to environment"
-    uses: ./.github/workflows/test.yml
     needs: call_reuable_code
+    if: needs.call_reuable_code.outputs.git_short_ref == 'develop'
+    uses: ./.github/workflows/test.yml
     secrets: inherit
     with:
-      env: ${{ needs.call_reuable_code.outputs.git_short_ref }}
+      env: dev
