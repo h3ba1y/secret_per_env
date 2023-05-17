@@ -2,23 +2,30 @@ name: "test"
 
 on:
   workflow_call:
-    inputs:
-      env:
-        required: true
-        type: string
 
 jobs:
+  get_env_var:
+    runs-on: ubuntu-latest
+    outputs:
+      env: ${{ fromJSON('{develop:"dev",qa:"qa", master:"prod"}')[env.git_short_ref] }}
+    steps:
+      - name: "Set github short ref"
+        id: vars
+        run: |
+          echo "GITHUB_REF=${GITHUB_REF}"
+          echo "git_short_ref=$(echo ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
   test:
     name: test
     runs-on: ubuntu-latest
-    environment: ${{ inputs.env }}
+    needs: get_env_var
+    environment: ${{ needs.get_env_var.outputs.env }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
       - run: npm install
-      - run: echo "${{ inputs.env }}"
+      - run: echo "${{ needs.get_env_var.outputs.env }}"
       - run: |
           echo "access_token = secrets.access_token" >> $GITHUB_ENV
           echo "secrets: ${{ toJSON(secrets) }}"

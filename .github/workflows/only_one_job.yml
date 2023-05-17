@@ -8,12 +8,7 @@ on:
       - qa
 
 jobs:
-  call_reuable_code:
-    uses: ./.github/workflows/git_env.yml
   deploy-to-env:
     name: "deploy to environment"
-    needs: call_reuable_code
     uses: ./.github/workflows/test.yml
     secrets: inherit
-    with:
-      env: ${{ needs.call_reuable_code.outputs.env }}
